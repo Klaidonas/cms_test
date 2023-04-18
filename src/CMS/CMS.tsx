@@ -1,5 +1,5 @@
 import React from 'react';
-import { addDoc, collection, doc, setDoc, updateDoc  } from "firebase/firestore"; 
+import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc  } from "firebase/firestore"; 
 import { db, firestore } from '../utils/firebase';
 import { ProductData } from '../interfaces';
   
@@ -12,6 +12,11 @@ export const addProduct = async(title: string, photo: string, price: string) => 
     price: price
   });
   console.log("id: " + id);
+}
+
+
+export const removeProduct = async(x:any) => {
+  await deleteDoc(doc(db, "products", x));
 }
 
   
