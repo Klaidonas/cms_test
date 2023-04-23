@@ -16,6 +16,7 @@ const Product = () => {
       function handleClick(prop:string) {
         window.location.href=prop;
       }
+      let thumbnail:string;
 
       return(
         <>
