@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
-import { addProduct, dummyFunction, removeProduct } from '../CMS/CMS';
+import { addProduct } from '../CMS/CMS';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../utils/firebase';
 import { v4 } from 'uuid';
@@ -15,92 +15,94 @@ const ProductsManager = () => {
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [imageUpload, setImageUpload] = useState<any>();
-  const [imageUrl, setImageUrl] = useState<string>();
-  const [urlCopy, setUrlCopy] = useState<string[]>([]);
-  const handleNewProduct = async () => {
-    await uploadImage(); 
-    console.log("url before adding" + urlCopy);
-    
-    addProduct(
-      titleRef.current.value, 
-      urlCopy,
-      priceRef.current.value,
-      )
-  }
-      useEffect(()=> {
-        
-        if(imageUrl) {
-          setUrlCopy(current => [...current, imageUrl]);
-          console.log("useEffecte urlCopy: " + urlCopy[1]);
-         }
-      }, [imageUrl])
-  
-  
-  const uploadImage = async() => {
-    if(imageUpload == null) return;
-    for(let i = 0; i < imageUpload.length; i++) {
-      const imageRef = ref(storage, `products_list/${imageUpload[i].name + v4()}`);
-      await uploadBytes(imageRef, imageUpload[i])
-      .then((snapshot) => {
-      getDownloadURL(snapshot.ref)
-       .then((url:any) => {
-        setImageUrl(url)
-        console.log(url);
-        
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    })
-    console.log(i);
-    }
-  };
-
-  const deleteProduct = async(id:string) => {
-    let x = doc(db, "products", id);
-    console.log("id: " + id);
-    await deleteDoc(doc(db, "products", id));
-  }
-
+  const [imageUrl, setImageUrl] = useState<string[]>([]);
+  const [imageQuantity, setImageQuantity] = useState<number>();
   const [products, setProducts] = useState<ProductData[]>();
+
   useEffect(() => {
     initialFetch()
 }, [])
+
   const initialFetch = async() => {
     let localProducts :ProductData[] = await fetchProducts();
     setProducts(localProducts);
   }
-  
-  function handleClick(prop:string) {
-    window.location.href=prop;
-  }
-  function logUrls() {
-    for(let i = 0; i< imageUpload.length; i++) {
-      console.log("urlCopy: " + urlCopy[i]);
-    }
-    
+
+
+  const handleNewProduct = async () => {
+    await uploadImage(); 
   }
 
-  let thumbnail:string;
+    
+
+      useEffect(()=> {  
+        if(imageUrl.length===imageQuantity&&titleRef.current.value) {
+          console.log("imageUrl.length: "+ imageQuantity);
+          console.log("useEffecte urlCopy: " + imageUrl);
+          console.log("title in addProduct: " + titleRef.current.value);
+          addProduct(
+            titleRef.current.value, 
+            imageUrl,
+            priceRef.current.value,
+            )
+            formRef.current.reset();
+         }
+      }, [imageUrl])
+  
+
+    const uploadImage = async() => {
+      setImageQuantity(imageUpload.length);
+
+      console.log("imageUpload: " + imageUpload);
+      
+      if(imageUpload == null) return;
+
+      const productImagesCollection = `products_list/${titleRef.current.value}`
+      
+      for(let i = 0; i < imageUpload.length; i++) {
+    
+        const imageRef = ref(storage, `${productImagesCollection}/${imageUpload[i].name + v4()}`);
+        
+        await uploadBytes(imageRef, imageUpload[i])
+        .then((snapshot) => {
+          getDownloadURL(snapshot.ref)
+          .then((url:string) => {
+            setImageUrl(current => [...current, url])
+            console.log("setImageUrl: " + imageUrl);
+          })
+          .catch((error) => { alert(error) })
+        })
+      }
+  };
+
+  const deleteProduct = async(id:string) => {
+    console.log("id: " + id);
+    await deleteDoc(doc(db, "products", id));
+  }
+
+  const formRef = useRef() as any;
+ 
+
+  
   return (
     <div className='productsManager'>
       <div className="new-product">
 
         <h2>Upload New Product</h2>
-
-        <div className="new-title">
-          <label>Product's title</label>
-          <input type="text" ref={titleRef}/>
-        </div>
-        <div className="new-image">
-          <label>Product's image</label>
-          <input type="file" multiple onChange = {(event) => {setImageUpload(event.target.files)}}/>
-        </div>
-        <div className="new-price">
-          <label>Product's price</label>
-          <input type="text" ref={priceRef}/>
-        </div>
-
+        <form ref={formRef}>
+          <div className="new-title">
+            <label>Product's title</label>
+            <input type="text" ref={titleRef}/>
+          </div>
+          <div className="new-image">
+            <label>Product's image</label>
+            <input type="file" multiple onChange = {(event) => {setImageUpload(event.target.files)}}/>
+          </div>
+          <div className="new-price">
+            <label>Product's price</label>
+            <input type="text" ref={priceRef}/>
+          </div>
+        </form>
         <button onClick={handleNewProduct}>add product</button>
       </div>
       <div className="manager-list">
@@ -115,11 +117,10 @@ const ProductsManager = () => {
               </div>
               <div className="img">
                 {/* {thumbnail = product.photo} */}
-                <img src = {product.photo} alt = {product.title}/>
+                <img src = {product.photo[0]} alt = {product.title}/>
               </div>
               <div className="btn">
                 <button onClick={() => deleteProduct(product.id)}>X</button>
-                <button onClick={logUrls}>check urls</button>
               </div> 
             </div>
           ))}

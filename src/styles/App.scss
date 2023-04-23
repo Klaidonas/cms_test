@@ -58,6 +58,10 @@ body {
  }
 
 
+ .product-container {
+  display: flex;
+ }
+
 
  @media (max-width: $LAPTOPS_SIZE) {
   .products-list {
