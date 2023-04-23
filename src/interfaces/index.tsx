@@ -4,3 +4,6 @@ export type ProductData = {
   title: string,
   price: number
 }
+type PhotoArray = {
+  photos:string[];
+}
