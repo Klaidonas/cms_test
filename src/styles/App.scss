@@ -58,21 +58,40 @@ body {
  }
 
 
- .product-container {
+ //----------LEFT SIDE-----------//
+
+ .single-product-container {
   display: flex;
  }
 
+.single-product-images {
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+}
 
- .image-container .xd {
-  width: 100px;
-  height: 100px;
- }
-
- .image-container .i0 {
+.thumbnail {
   width: 500px;
-  height: 350px;
+  height:500px;
+  border: 2px solid #000;
+}
+
+ .product-gallery-img{
+  width: 200px;
+  height: 200px;
   border:1px solid #0c0c0c;
  }
+ 
+
+  //----------RIGHT SIDE-----------//
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    text-align: start;
+  }
+
+
  
  @media (max-width: $LAPTOPS_SIZE) {
   .products-list {  

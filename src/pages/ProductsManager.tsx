@@ -14,10 +14,12 @@ const ProductsManager = () => {
 
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const checkboxRef = useRef([]) as React.MutableRefObject<HTMLInputElement[]>;
   const [imageUpload, setImageUpload] = useState<any>();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [imageQuantity, setImageQuantity] = useState<number>();
   const [products, setProducts] = useState<ProductData[]>();
+  const [categories, setCategories] = useState<string[]>(["xd1", "xd2"]);
 
   useEffect(() => {
     initialFetch()
@@ -30,7 +32,12 @@ const ProductsManager = () => {
 
 
   const handleNewProduct = async () => {
-    await uploadImage(); 
+    if(titleRef.current.value&&imageUrl
+      &&priceRef.current.value&&categories
+      &&imageUpload.length>0) {
+        await uploadImage(); 
+    }
+    else alert("fill all inputs")
   }
 
     
@@ -40,10 +47,15 @@ const ProductsManager = () => {
           console.log("imageUrl.length: "+ imageQuantity);
           console.log("useEffecte urlCopy: " + imageUrl);
           console.log("title in addProduct: " + titleRef.current.value);
+
           addProduct(
             titleRef.current.value, 
             imageUrl,
             priceRef.current.value,
+            categories
+            )
+              alert(
+              `The checkbox is ${checkboxRef.current.checked ? checkboxRef.current.value : "unchecked"}`
             )
             formRef.current.reset();
          }
@@ -101,6 +113,36 @@ const ProductsManager = () => {
           <div className="new-price">
             <label>Product's price</label>
             <input type="text" ref={priceRef}/>
+          </div>
+          <div className="categories">
+            <h4>Categories</h4>
+            <div className="option">
+              <label>Batai</label>
+              <input 
+                type='checkbox' 
+                id="checkbox"
+                ref={checkboxRef}
+                value="batai"
+              />
+            </div>
+            <div className="option">
+              <label>Rankines</label>
+              <input 
+                type='checkbox' 
+                id="checkbox"
+                ref={checkboxRef}
+                value="rankines"
+              />
+            </div>
+            <div className="option">
+              <label>Salikai</label>
+              <input 
+                type='checkbox' 
+                id="checkbox"
+                ref={checkboxRef}
+                value="salikai"
+              />
+            </div>
           </div>
         </form>
         <button onClick={handleNewProduct}>add product</button>

@@ -22,7 +22,9 @@ const Product = ({chooseMessage, productId}:any) => {
 
 
       
-
+      console.log("Product.tsx products:"); console.log(products);
+      
+      
 
       return(
         <>
