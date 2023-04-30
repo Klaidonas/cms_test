@@ -63,8 +63,19 @@ body {
  }
 
 
+ .image-container .xd {
+  width: 100px;
+  height: 100px;
+ }
+
+ .image-container .i0 {
+  width: 500px;
+  height: 350px;
+  border:1px solid #0c0c0c;
+ }
+ 
  @media (max-width: $LAPTOPS_SIZE) {
-  .products-list {
+  .products-list {  
     justify-content: center;
   }
 }
