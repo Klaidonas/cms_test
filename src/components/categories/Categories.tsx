@@ -13,7 +13,9 @@ const Categories = () => {
     setCategories(localCategories);
   }
 
-
+  const [checked, setChecked] = useState<boolean>()
+  const handleCategory = () => {
+  }
   if(!categories) return <h1>Loading categories..</h1>
   return (
     <>
@@ -22,6 +24,10 @@ const Categories = () => {
           <label>{category.category}</label>
           <input 
             type="checkbox"
+            checked={checked}
+            onClick={()=>setChecked(!checked)}
+            onChange={()=>console.log(checked)
+            }
           />
         </div>
       ))}

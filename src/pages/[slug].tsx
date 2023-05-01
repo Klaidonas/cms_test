@@ -81,6 +81,9 @@ console.log("slug products:"); console.log(productData);
                 malesuada erat ut turpis. Suspendisse urna nibh, viverra 
                 non, semper suscipit, posuere a, pede.</p>
             </div>
+            <div className="product-categories">
+              
+            </div>
         </div>
       </div>
     </div>

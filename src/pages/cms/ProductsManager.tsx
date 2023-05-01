@@ -131,7 +131,6 @@ const ProductsManager = () => {
                 <span>{product.price}</span>
               </div>
               <div className="img">
-                {/* {thumbnail = product.photo} */}
                 <img src = {product.photo[0]} alt = {product.title}/>
               </div>
               <div className="btn">

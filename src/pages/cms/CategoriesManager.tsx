@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ProductCategories } from '../../interfaces';
 import { fetchCategories } from '../../utils/firebaseFetch';
 import { addCategory } from '../../CMS/CMS';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../../utils/firebase';
 
 const CategoriesManager = () => {
 
@@ -19,10 +21,18 @@ const CategoriesManager = () => {
   const formRef = useRef() as any;
 
   const handleNewCategory = async() => {
-    await addCategory(categoryRef.current.value);
-    formRef.current.reset();
+    if(categoryRef.current.value!==""){
+      await addCategory(categoryRef.current.value);
+      formRef.current.reset();
+   }
+   else alert("specify category's name")
   }
   
+  const deleteProduct = async(id:string) => {
+    console.log("deleted product id: " + id);
+    await deleteDoc(doc(db, "product-categories", id));
+  }
+
   return (
     <div className='categoriesManager'>
       <div className="new-category">
@@ -40,7 +50,12 @@ const CategoriesManager = () => {
         <h2>Categories List</h2>
         <ul>
           {categories?.map((category)=> (
-            <li key={category.id}>{category.category}</li>
+            <li key={category.id}>
+              {category.category} 
+              <button onClick={() => deleteProduct(category.id)}>
+                X
+              </button>
+            </li>
           ))}
         </ul>
       </div>
