@@ -6,6 +6,7 @@ import { db, storage } from '../../utils/firebase';
 import { v4 } from 'uuid';
 import { ProductData } from '../../interfaces';
 import { fetchProducts } from '../../utils/firebaseFetch';
+import Categories from '../../components/categories/Categories';
 //import Categories from '../../components/categories/Categories';
 
 
@@ -114,7 +115,7 @@ const ProductsManager = () => {
           </div>
           <div className="categories">
             <h4>Categories</h4>
-            {/* <Categories /> */}
+             <Categories /> 
           </div>
         </form>
         <button onClick={handleNewProduct}>add product</button>
