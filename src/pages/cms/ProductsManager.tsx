@@ -1,11 +1,12 @@
 import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
-import { addProduct } from '../CMS/CMS';
+import { addProduct } from '../../CMS/CMS';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../utils/firebase';
+import { db, storage } from '../../utils/firebase';
 import { v4 } from 'uuid';
-import { ProductData } from '../interfaces';
-import { fetchProducts } from '../utils/firebaseFetch';
+import { ProductData } from '../../interfaces';
+import { fetchProducts } from '../../utils/firebaseFetch';
+//import Categories from '../../components/categories/Categories';
 
 
 
@@ -54,9 +55,6 @@ const ProductsManager = () => {
             priceRef.current.value,
             categories
             )
-              alert(
-              `The checkbox is ${checkboxRef.current.checked ? checkboxRef.current.value : "unchecked"}`
-            )
             formRef.current.reset();
          }
       }, [imageUrl])
@@ -88,7 +86,7 @@ const ProductsManager = () => {
   };
 
   const deleteProduct = async(id:string) => {
-    console.log("id: " + id);
+    console.log("deleted product id: " + id);
     await deleteDoc(doc(db, "products", id));
   }
 
@@ -116,33 +114,7 @@ const ProductsManager = () => {
           </div>
           <div className="categories">
             <h4>Categories</h4>
-            <div className="option">
-              <label>Batai</label>
-              <input 
-                type='checkbox' 
-                id="checkbox"
-                ref={checkboxRef}
-                value="batai"
-              />
-            </div>
-            <div className="option">
-              <label>Rankines</label>
-              <input 
-                type='checkbox' 
-                id="checkbox"
-                ref={checkboxRef}
-                value="rankines"
-              />
-            </div>
-            <div className="option">
-              <label>Salikai</label>
-              <input 
-                type='checkbox' 
-                id="checkbox"
-                ref={checkboxRef}
-                value="salikai"
-              />
-            </div>
+            {/* <Categories /> */}
           </div>
         </form>
         <button onClick={handleNewProduct}>add product</button>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles/App.scss';
 import Home from './pages/Home';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
-import ProductsManager from './pages/ProductsManager';
+import ProductsManager from './pages/cms/ProductsManager';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import ProductsList from './components/products_list/ProductsList';
