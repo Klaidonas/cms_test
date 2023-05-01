@@ -18,7 +18,7 @@ const Categories = () => {
   return (
     <>
       {categories.map((category) => (
-        <div className="option">
+        <div className="option" key={category.id}>
           <label>{category.category}</label>
           <input 
             type="checkbox"
