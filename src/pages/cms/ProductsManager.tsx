@@ -7,16 +7,12 @@ import { v4 } from 'uuid';
 import { ProductData } from '../../interfaces';
 import { fetchProducts } from '../../utils/firebaseFetch';
 import Categories from '../../components/categories/Categories';
-//import Categories from '../../components/categories/Categories';
-
-
-
 
 const ProductsManager = () => {
-  const [newCategories, setNewCategories] = useState([])
+  const [categories, setCategories] = useState<string[]>(["xd1", "xd2"]);
   const chooseMessage = (message:any) => {
     // Here, you have the function from the child.
-    setNewCategories(message);
+    setCategories(message);
   }
 
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -25,7 +21,6 @@ const ProductsManager = () => {
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [imageQuantity, setImageQuantity] = useState<number>();
   const [products, setProducts] = useState<ProductData[]>();
-  const [categories, setCategories] = useState<string[]>(["xd1", "xd2"]);
 
   useEffect(() => {
     initialFetch()
@@ -45,21 +40,21 @@ const ProductsManager = () => {
     else alert("fill all inputs")
   }
 
-      useEffect(()=> {  
-        if(imageUrl.length===imageQuantity&&titleRef.current.value) {
-          console.log("imageUrl.length: "+ imageQuantity);
-          console.log("useEffecte urlCopy: " + imageUrl);
-          console.log("title in addProduct: " + titleRef.current.value);
+  useEffect(()=> {  
+    if(imageUrl.length===imageQuantity&&titleRef.current.value) {
+      console.log("imageUrl.length: "+ imageQuantity);
+      console.log("useEffecte urlCopy: " + imageUrl);
+      console.log("title in addProduct: " + titleRef.current.value);
 
-          addProduct(
-            titleRef.current.value, 
-            imageUrl,
-            priceRef.current.value,
-            newCategories
-            )
-            formRef.current.reset();
-         }
-      }, [imageUrl])
+      addProduct(
+        titleRef.current.value, 
+        imageUrl,
+        priceRef.current.value,
+        categories
+        )
+        formRef.current.reset();
+      }
+  }, [imageUrl])
   
 
     const uploadImage = async() => {

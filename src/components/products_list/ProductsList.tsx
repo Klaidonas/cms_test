@@ -5,22 +5,12 @@ import { db } from '../../utils/firebase';
 
 const ProductsList = ({prop, productId}:any) => {
 
-  const [message, setMessage] = useState<any>()
- 
-  const chooseMessage = (message:any) => {
-    setMessage(message);
-  }
-
-  useEffect(() => {
-    prop(message);
-  }, [message])
-
   return (
     <div>
       <h1>Shop</h1>
       {/* <h1>{message}</h1> */}
       <div className="products-list">
-        <Product chooseMessage={chooseMessage} productId = {productId} />
+        <Product/>
       </div>
       <section>
         

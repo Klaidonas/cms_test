@@ -82,7 +82,11 @@ console.log("slug products:"); console.log(productData);
                 non, semper suscipit, posuere a, pede.</p>
             </div>
             <div className="product-categories">
-              
+              <ul>
+                {productData.categories.map((category:string, i:string) => (
+                  <li key={i}>{category}</li>
+                ))}
+              </ul>
             </div>
         </div>
       </div>
