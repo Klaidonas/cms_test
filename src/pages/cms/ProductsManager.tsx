@@ -13,10 +13,14 @@ import Categories from '../../components/categories/Categories';
 
 
 const ProductsManager = () => {
+  const [newCategories, setNewCategories] = useState([])
+  const chooseMessage = (message:any) => {
+    // Here, you have the function from the child.
+    setNewCategories(message);
+  }
 
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const checkboxRef = useRef([]) as React.MutableRefObject<HTMLInputElement[]>;
   const [imageUpload, setImageUpload] = useState<any>();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [imageQuantity, setImageQuantity] = useState<number>();
@@ -32,7 +36,6 @@ const ProductsManager = () => {
     setProducts(localProducts);
   }
 
-
   const handleNewProduct = async () => {
     if(titleRef.current.value&&imageUrl
       &&priceRef.current.value&&categories
@@ -41,8 +44,6 @@ const ProductsManager = () => {
     }
     else alert("fill all inputs")
   }
-
-    
 
       useEffect(()=> {  
         if(imageUrl.length===imageQuantity&&titleRef.current.value) {
@@ -54,7 +55,7 @@ const ProductsManager = () => {
             titleRef.current.value, 
             imageUrl,
             priceRef.current.value,
-            categories
+            newCategories
             )
             formRef.current.reset();
          }
@@ -93,8 +94,6 @@ const ProductsManager = () => {
 
   const formRef = useRef() as any;
  
-
-  
   return (
     <div className='productsManager'>
       <div className="new-product">
@@ -115,7 +114,7 @@ const ProductsManager = () => {
           </div>
           <div className="categories">
             <h4>Categories</h4>
-             <Categories /> 
+             <Categories chooseMessage={chooseMessage}/> 
           </div>
         </form>
         <button onClick={handleNewProduct}>add product</button>
