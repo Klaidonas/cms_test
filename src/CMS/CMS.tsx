@@ -19,5 +19,15 @@ export const addProduct = async(title: string, photo: string[], price: string, c
 
   
 
+export const addCategory = async(category: string) => {
+  const id=doc(collection(db, "product-categories")).id;
+  await setDoc(doc(db, "product-categories", id), {
+    id: id,
+    category: category
+  });
+  console.log("category: " + category);
+  
+  console.log("id: " + id);
+}
 
- 
+  

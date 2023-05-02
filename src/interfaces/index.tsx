@@ -5,6 +5,8 @@ export type ProductData = {
   price: number,
   categproes: string[]
 }
-type PhotoArray = {
-  photos:string[];
+
+export type ProductCategories = {
+  id: string;
+  category: string;
 }
