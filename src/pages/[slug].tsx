@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ProductData } from '../interfaces';
-import { fetchProducts } from '../utils/firebaseFetch';
 import { db } from '../utils/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
-
-type Props = {
-  product?:string
-}
  
-
-
-
 const ProductPage = () => {
-  
-
   
   const [productId, setProductId] = useState<any>();
   const [productData, setProductData] = useState<any>()
@@ -41,7 +30,6 @@ useEffect(() => {
   { productData && 
     console.log("productData length: "+ productData.photo[0]);
     //console.log("firt photo: " +  productData.photo.length);
-    
   }
 }, [productId])
 console.log("productId: " + [productId]);

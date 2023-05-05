@@ -10,9 +10,9 @@ import Categories from '../../components/categories/Categories';
 
 const ProductsManager = () => {
   const [categories, setCategories] = useState<string[]>([]);
-  const chooseMessage = (message:any) => {
+  const selectCategories = (newCategories:any) => {
     // Here, you have the function from the child.
-    setCategories(message);
+    setCategories(newCategories);
   }
 
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -109,7 +109,7 @@ const ProductsManager = () => {
           </div>
           <div className="categories">
             <h4>Categories</h4>
-             <Categories chooseMessage={chooseMessage}/> 
+             <Categories selectCategories={selectCategories}/> 
           </div>
         </form>
         <button onClick={handleNewProduct}>add product</button>
