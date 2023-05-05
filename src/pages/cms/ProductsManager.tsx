@@ -16,12 +16,11 @@ const ProductsManager = () => {
 
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const checkboxRef = useRef([]) as React.MutableRefObject<HTMLInputElement[]>;
   const [imageUpload, setImageUpload] = useState<any>();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [imageQuantity, setImageQuantity] = useState<number>();
   const [products, setProducts] = useState<ProductData[]>();
-  const [categories, setCategories] = useState<string[]>(["xd1", "xd2"]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
     initialFetch()

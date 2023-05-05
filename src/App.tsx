@@ -27,7 +27,6 @@ function App() {
           <Route path='/' element={<ProductsList prop = {chooseMessage}  product={message}/>} />
           <Route path='/products-manager' element={<ProductsManager/>} />
           <Route path='/categories-manager' element={<CategoriesManager/>} />
-          {/* <Route path={`/`+ message} element = { } /> */}
           <Route path='/products-list' element={<ProductsList />} />
           <Route path='/products/*' element = {<ProductPage/>} />
         </Routes>

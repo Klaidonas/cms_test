@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ProductCategories } from '../../interfaces';
 import { fetchCategories } from '../../utils/firebaseFetch';
 
@@ -16,7 +16,10 @@ const Categories = () => {
   const [checked, setChecked] = useState<boolean>()
   const handleCategory = () => {
   }
+  const checkboxRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
   if(!categories) return <h1>Loading categories..</h1>
+
   return (
     <>
       {categories.map((category) => (
@@ -24,10 +27,7 @@ const Categories = () => {
           <label>{category.category}</label>
           <input 
             type="checkbox"
-            checked={checked}
-            onClick={()=>setChecked(!checked)}
-            onChange={()=>console.log(checked)
-            }
+            ref = {checkboxRef}
           />
         </div>
       ))}

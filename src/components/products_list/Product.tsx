@@ -14,6 +14,7 @@ const Product = ({chooseMessage, productId}:any) => {
         setProducts(localProducts);
       }
       
+
       async function handleClick(prop:string) {
         await chooseMessage(prop);
         window.location.href=`/products/${prop}`;
