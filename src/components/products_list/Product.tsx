@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ProductData } from '../../interfaces';
 import { fetchProducts } from '../../utils/firebaseFetch';
-import { useNavigate } from "react-router-dom";
 
 const Product = () => {
       const [products, setProducts] = useState<ProductData[]>();
@@ -13,17 +12,19 @@ const Product = () => {
         setProducts(localProducts);
       }
       
-      function handleClick(prop:string) {
-        window.location.href=prop;
+
+      async function handleClick(prop:string) {
+        window.location.href=`/products/${prop}`;
       }
-      let thumbnail:string;
+
+      console.log("Product.tsx products:"); console.log(products);
 
       return(
         <>
           {products && products.map((product) => (
-            <div className="product" onClick={()=> handleClick(product.title)} key = {product.id}>
+            <div className="product" onClick={()=> handleClick(product.id)} key = {product.id}>
               <div className="img">
-                <img src = {product.photo} alt = {product.title}/>
+                <img src = {product.photo[0]} alt = {product.title}/>
               </div>
               <h3>{product.title}</h3>
               <span>{product.price}</span>

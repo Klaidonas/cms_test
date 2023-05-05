@@ -1,9 +1,13 @@
 export type ProductData = {
   id: string,
-  photo: string,
+  photo: string[],
   title: string,
-  price: number
+  price: number,
+  categproes: string[]
 }
-type PhotoArray = {
-  photos:string[];
+
+export type ProductCategories = {
+  checked: boolean;
+  id: string;
+  category: string;
 }
