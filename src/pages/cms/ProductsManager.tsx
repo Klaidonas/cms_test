@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
-import { addProduct } from '../../CMS/CMS';
+import {  addProduct } from '../../CMS/CMS';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../utils/firebase';
 import { v4 } from 'uuid';
@@ -19,7 +19,6 @@ const ProductsManager = () => {
   const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [imageUpload, setImageUpload] = useState<any>();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
-  const [imageQuantity, setImageQuantity] = useState<number>();
   const [products, setProducts] = useState<ProductData[]>();
 
   useEffect(() => {
@@ -41,8 +40,7 @@ const ProductsManager = () => {
   }
 
   useEffect(()=> {  
-    if(imageUrl.length===imageQuantity&&titleRef.current.value) {
-      console.log("imageUrl.length: "+ imageQuantity);
+    if(titleRef.current.value) {
       console.log("useEffecte urlCopy: " + imageUrl);
       console.log("title in addProduct: " + titleRef.current.value);
 
@@ -57,12 +55,32 @@ const ProductsManager = () => {
   }, [imageUrl])
   
 
-    const uploadImage = async() => {
-      setImageQuantity(imageUpload.length);
 
+  // const uploadImage = async() => {
+  //   const {imageUrls}:any = await AddProductImage(
+  //     imageUpload,
+  //     String(titleRef.current.value)
+  //       )
+  //       const productImagesCollection = `products_list/${prop}/ ${+ v4}`
+  //       const imageRef = ref(storage, `${productImagesCollection}/${imageUpload[quantity].name + v4()}`);
+
+
+
+  //     setImageUrl(imageUrls)
+      
+  //   console.log("imageUrl:" + imageUrls);
+    
+  // }
+ 
+
+
+    const uploadImage = async() => {
       console.log("imageUpload: " + imageUpload);
       
-      if(imageUpload == null) return;
+      if(imageUpload == null) {
+        alert("error uploading photos");
+        return;
+      };
 
       const productImagesCollection = `products_list/${titleRef.current.value}`
       
