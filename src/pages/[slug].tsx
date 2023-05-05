@@ -36,7 +36,7 @@ const getProduct = async() => {
   
 const currentUrl = window.location.href;
 useEffect(() => {
-  setProductId(String(currentUrl.replace('http://localhost:3000/products/', '')));
+  setProductId(String(currentUrl.replace('http://localhost:3001/products/', '')));
   getProduct();
   { productData && 
     console.log("productData length: "+ productData.photo[0]);
@@ -44,6 +44,8 @@ useEffect(() => {
     
   }
 }, [productId])
+console.log("productId: " + [productId]);
+
 
 
 
@@ -82,7 +84,11 @@ console.log("slug products:"); console.log(productData);
                 non, semper suscipit, posuere a, pede.</p>
             </div>
             <div className="product-categories">
-              
+              <ul>
+                {productData.categories.map((category:string, i:string) => (
+                  <li key={i}>{category}</li>
+                ))}
+              </ul>
             </div>
         </div>
       </div>

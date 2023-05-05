@@ -7,6 +7,7 @@ export type ProductData = {
 }
 
 export type ProductCategories = {
+  checked: boolean;
   id: string;
   category: string;
 }

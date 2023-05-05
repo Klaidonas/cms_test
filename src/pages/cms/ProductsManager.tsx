@@ -7,21 +7,20 @@ import { v4 } from 'uuid';
 import { ProductData } from '../../interfaces';
 import { fetchProducts } from '../../utils/firebaseFetch';
 import Categories from '../../components/categories/Categories';
-//import Categories from '../../components/categories/Categories';
-
-
-
 
 const ProductsManager = () => {
+  const [categories, setCategories] = useState<string[]>([]);
+  const chooseMessage = (message:any) => {
+    // Here, you have the function from the child.
+    setCategories(message);
+  }
 
   const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const priceRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const checkboxRef = useRef([]) as React.MutableRefObject<HTMLInputElement[]>;
   const [imageUpload, setImageUpload] = useState<any>();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [imageQuantity, setImageQuantity] = useState<number>();
   const [products, setProducts] = useState<ProductData[]>();
-  const [categories, setCategories] = useState<string[]>(["xd1", "xd2"]);
 
   useEffect(() => {
     initialFetch()
@@ -32,7 +31,6 @@ const ProductsManager = () => {
     setProducts(localProducts);
   }
 
-
   const handleNewProduct = async () => {
     if(titleRef.current.value&&imageUrl
       &&priceRef.current.value&&categories
@@ -42,23 +40,21 @@ const ProductsManager = () => {
     else alert("fill all inputs")
   }
 
-    
+  useEffect(()=> {  
+    if(imageUrl.length===imageQuantity&&titleRef.current.value) {
+      console.log("imageUrl.length: "+ imageQuantity);
+      console.log("useEffecte urlCopy: " + imageUrl);
+      console.log("title in addProduct: " + titleRef.current.value);
 
-      useEffect(()=> {  
-        if(imageUrl.length===imageQuantity&&titleRef.current.value) {
-          console.log("imageUrl.length: "+ imageQuantity);
-          console.log("useEffecte urlCopy: " + imageUrl);
-          console.log("title in addProduct: " + titleRef.current.value);
-
-          addProduct(
-            titleRef.current.value, 
-            imageUrl,
-            priceRef.current.value,
-            categories
-            )
-            formRef.current.reset();
-         }
-      }, [imageUrl])
+      addProduct(
+        titleRef.current.value, 
+        imageUrl,
+        priceRef.current.value,
+        categories
+        )
+        formRef.current.reset();
+      }
+  }, [imageUrl])
   
 
     const uploadImage = async() => {
@@ -93,8 +89,6 @@ const ProductsManager = () => {
 
   const formRef = useRef() as any;
  
-
-  
   return (
     <div className='productsManager'>
       <div className="new-product">
@@ -115,7 +109,7 @@ const ProductsManager = () => {
           </div>
           <div className="categories">
             <h4>Categories</h4>
-             <Categories /> 
+             <Categories chooseMessage={chooseMessage}/> 
           </div>
         </form>
         <button onClick={handleNewProduct}>add product</button>

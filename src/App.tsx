@@ -12,26 +12,17 @@ import CategoriesManager from './pages/cms/CategoriesManager';
 
 function App() {
 
-  const [message, setMessage] = useState<any>();
-
-  const chooseMessage = (message:any) => {
-    setMessage(message);
-  }
-
-
   return (
     <React.StrictMode>
       <Header />
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<ProductsList prop = {chooseMessage}  product={message}/>} />
+          <Route path='/' element={<ProductsList/>} />
           <Route path='/products-manager' element={<ProductsManager/>} />
           <Route path='/categories-manager' element={<CategoriesManager/>} />
-          {/* <Route path={`/`+ message} element = { } /> */}
           <Route path='/products-list' element={<ProductsList />} />
           <Route path='/products/*' element = {<ProductPage/>} />
         </Routes>
-        <h1>message:{message}</h1>
       </BrowserRouter>
       <Footer />
     </React.StrictMode>

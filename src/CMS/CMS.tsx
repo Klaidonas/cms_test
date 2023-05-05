@@ -30,4 +30,6 @@ export const addCategory = async(category: string) => {
   console.log("id: " + id);
 }
 
+export const addProductImage = async() => {
   
+}

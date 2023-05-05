@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ProductData } from '../../interfaces';
 import { fetchProducts } from '../../utils/firebaseFetch';
-import { useNavigate } from "react-router-dom";
-import ProductPage from '../../pages/[slug]';
 
-const Product = ({chooseMessage, productId}:any) => {
+const Product = () => {
       const [products, setProducts] = useState<ProductData[]>();
       useEffect(() => {
         initialFetch()
@@ -14,17 +12,12 @@ const Product = ({chooseMessage, productId}:any) => {
         setProducts(localProducts);
       }
       
+
       async function handleClick(prop:string) {
-        await chooseMessage(prop);
         window.location.href=`/products/${prop}`;
       }
-      let thumbnail:string;
 
-
-      
       console.log("Product.tsx products:"); console.log(products);
-      
-      
 
       return(
         <>
