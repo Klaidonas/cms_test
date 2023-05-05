@@ -12,6 +12,7 @@ const Product = () => {
         setProducts(localProducts);
       }
       
+
       async function handleClick(prop:string) {
         window.location.href=`/products/${prop}`;
       }

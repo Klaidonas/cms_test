@@ -9,7 +9,7 @@ import { fetchProducts } from '../../utils/firebaseFetch';
 import Categories from '../../components/categories/Categories';
 
 const ProductsManager = () => {
-  const [categories, setCategories] = useState<string[]>(["xd1", "xd2"]);
+  const [categories, setCategories] = useState<string[]>([]);
   const chooseMessage = (message:any) => {
     // Here, you have the function from the child.
     setCategories(message);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ProductCategories } from '../../interfaces';
 import { fetchCategories } from '../../utils/firebaseFetch';
 import Checkbox from './Checkbox';
@@ -36,7 +36,7 @@ const Categories = ({chooseMessage}:any) => {
     console.log("selectedItems: " + selectedItems);
     
   };
-
+  if(!categories) return <h1>Loading categories..</h1>
   return (
     <>
       <Checkbox categories={categories} handleCheckboxChange={handleCheckboxChange}/>
@@ -45,8 +45,8 @@ const Categories = ({chooseMessage}:any) => {
       {selectedItems.map((category, i) => (
         <li key={i}>{category}</li>
       ))}
-    </>
-  );
-};
+      </>
+      )
+}
 
 export default Categories;
