@@ -9,6 +9,8 @@ const Categories = ({selectCategories}:any) => {
   useEffect(() => {
     initialFetch()
 }, [])
+
+
   const initialFetch = async() => {
     let localCategories :ProductCategories[] = await fetchCategories();
     setCategories(localCategories);
@@ -24,20 +26,16 @@ const Categories = ({selectCategories}:any) => {
         category.id === categoryId ? { ...category, checked: isChecked } : category
       )
     );
-    
-  };
-  
-  const handleSaveButtonClick = (event: any) => {
-    event.preventDefault();
     const selected = categories.filter((category) => category.checked);
     const selectedIds:any = selected.map((category) => category.id);
-    selectCategories(selectedIds);    
+    selectCategories(selectedIds);
   };
+  
+
   if(!categories) return <h1>Loading categories..</h1>
   return (
     <>
       <Checkbox categories={categories} handleCheckboxChange={handleCheckboxChange}/>
-      <button onClick={handleSaveButtonClick}>Save</button>
       <h3>selected categories:</h3>
       </>
       )

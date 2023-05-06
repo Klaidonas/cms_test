@@ -25,7 +25,7 @@ const getProduct = async() => {
   
 const currentUrl = window.location.href;
 useEffect(() => {
-  setProductId(String(currentUrl.replace('http://localhost:3001/products/', '')));
+  setProductId(String(currentUrl.replace('http://localhost:3000/products/', '')));
   getProduct();
   { productData && 
     console.log("productData length: "+ productData.photo[0]);

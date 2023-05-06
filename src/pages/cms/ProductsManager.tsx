@@ -12,6 +12,8 @@ const ProductsManager = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const selectCategories = (newCategories:any) => {
     // Here, you have the function from the child.
+    console.log("newCategories :" +newCategories);
+    
     setCategories(newCategories);
   }
 
