@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Checkbox = ({categories, handleCheckboxChange}:any) => {
-  if(categories==''||handleCheckboxChange=='') return <h1>bybys</h1>
+  if(categories==''||handleCheckboxChange=='') return <h1>no categories found</h1>
   
   return (
     <>
